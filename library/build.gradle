@@ -1,0 +1,37 @@
+apply from: 'config.gradle'
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jlleitschuh.gradle.ktlint'
+apply plugin: 'org.jetbrains.dokka-android'
+
+android {
+  final config = project.ext.config
+  compileSdkVersion config.compileSdkVersion
+  buildToolsVersion config.buildToolsVersion
+  defaultConfig {
+    versionCode config.versionCode
+    versionName config.versionName
+    minSdkVersion config.minSdkVersion
+    targetSdkVersion config.targetSdkVersion
+  }
+  compileOptions {
+    sourceCompatibility config.javaCompatibility
+    targetCompatibility config.javaCompatibility
+  }
+  lintOptions {
+    abortOnError true
+    absolutePaths true
+    checkAllWarnings true
+    htmlOutput = new File("$project.buildDir/lint.html")
+    quiet false
+    warningsAsErrors true
+  }
+  sourceSets.forEach {
+    it.java.srcDirs = ["src/$it.name/kotlin"]
+  }
+}
+
+repositories {
+  jcenter()
+}

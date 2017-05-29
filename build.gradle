@@ -1,0 +1,33 @@
+apply from: 'dependencies.gradle'
+
+buildscript {
+  repositories {
+    maven { url "https://plugins.gradle.org/m2/" }
+    maven { url 'https://maven.google.com' }
+    jcenter()
+  }
+  final androidPluginVersion = "3.0.0-alpha2"
+  ext.versions = [
+    kotlin: "1.1.2"
+  ]
+  final kotlinPluginVersion = ext.versions.kotlin = "1.1.2-4"
+  final dokkaPluginVersion = "0.9.14"
+  final ktLintPluginVersion = "2.0.0"
+  final classpathDependencies = [
+      "com.android.tools.build:gradle:$androidPluginVersion",
+      "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion",
+      "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokkaPluginVersion",
+      "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$ktLintPluginVersion"
+    ]
+  dependencies {
+    classpath classpathDependencies
+  }
+}
+
+task clean(type: Delete, overwrite: true) {
+  group "Verification"
+  description "Deletes the build directories of the root and children projects."
+  rootProject.allprojects.each {
+    delete it.buildDir
+  }
+}
