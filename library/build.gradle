@@ -36,3 +36,9 @@ android {
 repositories {
   jcenter()
 }
+
+dependencies {
+  final deps = rootProject.ext.dependencies
+  implementation deps.kotlinStdLib
+  api deps.store
+}
