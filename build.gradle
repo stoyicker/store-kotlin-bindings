@@ -13,11 +13,13 @@ buildscript {
   final kotlinPluginVersion = ext.versions.kotlin = "1.1.2-4"
   final dokkaPluginVersion = "0.9.14"
   final ktLintPluginVersion = "2.0.0"
+  final gradleReleasePluginVersion = "2.4.0"
   final classpathDependencies = [
       "com.android.tools.build:gradle:$androidPluginVersion",
       "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion",
       "org.jetbrains.dokka:dokka-android-gradle-plugin:$dokkaPluginVersion",
-      "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$ktLintPluginVersion"
+      "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:$ktLintPluginVersion",
+      "net.researchgate:gradle-release:$gradleReleasePluginVersion"
     ]
   dependencies {
     classpath classpathDependencies

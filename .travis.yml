@@ -9,8 +9,7 @@ android:
 branches:
   except:
     - "/^[0-9]/"
-script:
-  - ./gradlew check test
+script: ./ci/test.sh
 notifications:
   email:
     recipients:

@@ -1,9 +1,10 @@
-apply from: 'config.gradle'
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jlleitschuh.gradle.ktlint'
 apply plugin: 'org.jetbrains.dokka-android'
+
+apply from: 'config.gradle'
+apply from: 'release.gradle'
 
 android {
   final config = project.ext.config
