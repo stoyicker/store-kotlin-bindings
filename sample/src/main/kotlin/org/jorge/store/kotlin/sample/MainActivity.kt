@@ -31,13 +31,9 @@ internal class MainActivity : Activity() {
 
             override fun write(key: BarCode, raw: ByteArray) = Single.just(true)
         }
-        val myKeyParser = KeyParser<BarCode, ByteArray, ByteArray> { _, _ -> ByteArray(0) }
-        val myParser = Parser<ByteArray, ByteArray> { ByteArray(0) }
         val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
         return FluentStoreBuilder.barcode(myFetcher) {
             persister = myPersister
-            parser = myKeyParser
-            parsers = listOf(myParser, myParser)
             memoryPolicy = myMemoryPolicy
         }
       }
@@ -54,13 +50,9 @@ internal class MainActivity : Activity() {
 
             override fun write(key: Int, raw: ByteArray) = Single.just(true)
         }
-        val myKeyParser = KeyParser<Int, ByteArray, ByteArray> { _, _ -> ByteArray(0) }
-        val myParser = Parser<ByteArray, ByteArray> { ByteArray(0) }
         val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
         return FluentStoreBuilder.key(myFetcher) {
             persister = myPersister
-            parser = myKeyParser
-            parsers = listOf(myParser, myParser)
             memoryPolicy = myMemoryPolicy
         }
       }
