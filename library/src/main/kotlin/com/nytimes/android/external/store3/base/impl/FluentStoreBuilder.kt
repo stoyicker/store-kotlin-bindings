@@ -21,6 +21,7 @@ class FluentStoreBuilder<Raw, Parsed, Key> private constructor(
             field = value
             parser = null
         }
+    var memoryPolicy: MemoryPolicy? = null
 
     /**
      * Applies any given configuration for the Store that will be created.
@@ -32,7 +33,7 @@ class FluentStoreBuilder<Raw, Parsed, Key> private constructor(
         if (config != null) {
             this.config()
         }
-        return FluentRealStoreBuilder(fetcher, persister, parser, parsers).open()
+        return FluentRealStoreBuilder(fetcher, persister, parser, parsers, memoryPolicy).open()
     }
 
     companion object {
