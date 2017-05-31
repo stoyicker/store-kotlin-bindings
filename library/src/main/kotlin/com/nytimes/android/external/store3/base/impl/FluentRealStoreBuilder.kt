@@ -14,13 +14,15 @@ internal class FluentRealStoreBuilder<Raw, Parsed, Key> constructor(
         private val persister: Persister<Raw, Key>?,
         private val keyParser: KeyParser<Key, Raw, Parsed>?,
         private val parsers: List<Parser<Raw, Parsed>>?,
-        private val memoryPolicy: MemoryPolicy?) {
+        private val memoryPolicy: MemoryPolicy?,
+        private val stalePolicy: StalePolicy) {
     /**
      * Creates the Store instance.
      * @return The created Store with the parameters passed into the constructor.
      */
     fun open(): Store<Parsed, Key> {
-        var builder = StoreBuilder.parsedWithKey<Key, Raw, Parsed>().fetcher(fetcher)
+        var builder = StoreBuilder.parsedWithKey<Key, Raw, Parsed>()
+                .fetcher(fetcher)
         if (persister != null) {
             builder = builder.persister(persister)
         }
@@ -33,6 +35,11 @@ internal class FluentRealStoreBuilder<Raw, Parsed, Key> constructor(
         }
         if (memoryPolicy != null) {
             builder = builder.memoryPolicy(memoryPolicy)
+        }
+        when(stalePolicy) {
+            StalePolicy.REFRESH_ON_STALE -> builder = builder.refreshOnStale()
+            StalePolicy.NETWORK_BEFORE_STALE -> builder = builder.networkBeforeStale()
+            StalePolicy.UNSPECIFIED -> { } // Do nothing
         }
         return builder.open()
     }

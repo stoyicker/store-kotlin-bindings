@@ -33,7 +33,7 @@ class FluentStoreBuilder {
                     }
                 }.let {
                     FluentRealStoreBuilder<Parsed, Parsed, Key>(
-                            fetcher, it.persister, null, null, it.memoryPolicy)
+                            fetcher, it.persister, null, null, it.memoryPolicy, it.stalePolicy)
                             .open()
                 }
 
@@ -52,7 +52,8 @@ class FluentStoreBuilder {
                     }
                 }.let {
                     FluentRealStoreBuilder(
-                            fetcher, it.persister, it.parser, it.parsers, it.memoryPolicy)
+                            fetcher, it.persister, it.parser, it.parsers, it.memoryPolicy,
+                            it.stalePolicy)
                             .open()
                 }
     }
