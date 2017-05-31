@@ -7,38 +7,38 @@ apply from: '../buildsystem/config.gradle'
 apply from: 'release.gradle'
 
 android {
-  final config = project.ext.config
-  compileSdkVersion config.compileSdkVersion
-  buildToolsVersion config.buildToolsVersion
-  defaultConfig {
-    versionCode config.versionCode
-    versionName config.versionName
-    minSdkVersion config.minSdkVersion
-    targetSdkVersion config.targetSdkVersion
-  }
-  compileOptions {
-    sourceCompatibility config.javaCompatibility
-    targetCompatibility config.javaCompatibility
-  }
-  lintOptions {
-    abortOnError true
-    absolutePaths true
-    checkAllWarnings true
-    htmlOutput = new File("$project.buildDir/lint.html")
-    quiet false
-    warningsAsErrors true
-  }
-  sourceSets.forEach {
-    it.java.srcDirs = ["src/$it.name/kotlin"]
-  }
+    final config = project.ext.config
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+    defaultConfig {
+      versionCode config.versionCode
+      versionName config.versionName
+      minSdkVersion config.minSdkVersion
+      targetSdkVersion config.targetSdkVersion
+    }
+    compileOptions {
+      sourceCompatibility config.javaCompatibility
+      targetCompatibility config.javaCompatibility
+    }
+    lintOptions {
+      abortOnError true
+      absolutePaths true
+      checkAllWarnings true
+      htmlOutput = new File("$project.buildDir/lint.html")
+      quiet false
+      warningsAsErrors true
+    }
+    sourceSets.forEach {
+      it.java.srcDirs = ["src/$it.name/kotlin"]
+    }
 }
 
 repositories {
-  jcenter()
+    jcenter()
 }
 
 dependencies {
-  final deps = rootProject.ext.dependencies
-  implementation deps.kotlinStdLib
-  api deps.store
+    final deps = rootProject.ext.dependencies
+    implementation deps.kotlinStdLib
+    api deps.store
 }

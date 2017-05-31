@@ -1,7 +1,9 @@
 package com.nytimes.android.external.store3.base.impl
 
 import com.nytimes.android.external.store3.base.Fetcher
+import com.nytimes.android.external.store3.base.Parser
 import com.nytimes.android.external.store3.base.Persister
+import com.nytimes.android.external.store3.util.KeyParser
 
 /**
  * Wraps methods for fluent Store instantiation.
@@ -9,6 +11,16 @@ import com.nytimes.android.external.store3.base.Persister
 class FluentStoreBuilder<Raw, Parsed, Key> private constructor(
         private val fetcher: Fetcher<Raw, Key>) {
     var persister: Persister<Raw, Key>? = null
+    var parser: KeyParser<Key, Raw, Parsed>? = null
+        set(value) {
+            field = value
+            parsers = null
+        }
+    var parsers: List<Parser<Raw, Parsed>>? = null
+        set(value) {
+            field = value
+            parser = null
+        }
 
     /**
      * Applies any given configuration for the Store that will be created.
@@ -20,7 +32,7 @@ class FluentStoreBuilder<Raw, Parsed, Key> private constructor(
         if (config != null) {
             this.config()
         }
-        return FluentRealStoreBuilder<Raw, Parsed, Key>(fetcher, persister).open()
+        return FluentRealStoreBuilder(fetcher, persister, parser, parsers).open()
     }
 
     companion object {
