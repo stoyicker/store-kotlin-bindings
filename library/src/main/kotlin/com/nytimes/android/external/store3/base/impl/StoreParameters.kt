@@ -12,6 +12,7 @@ import com.nytimes.android.external.store3.util.KeyParser
 open class StoreParameters<Raw, Key> internal constructor(private val fetcher: Fetcher<Raw, Key>) {
     var persister: Persister<Raw, Key>? = null
     var memoryPolicy: MemoryPolicy? = null
+    var stalePolicy: StalePolicy = StalePolicy.UNSPECIFIED
 }
 
 /**

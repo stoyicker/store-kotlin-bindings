@@ -8,6 +8,7 @@ import com.nytimes.android.external.store3.base.Persister
 import com.nytimes.android.external.store3.base.impl.BarCode
 import com.nytimes.android.external.store3.base.impl.FluentStoreBuilder
 import com.nytimes.android.external.store3.base.impl.MemoryPolicy
+import com.nytimes.android.external.store3.base.impl.StalePolicy
 import com.nytimes.android.external.store3.base.impl.Store
 import com.nytimes.android.external.store3.util.KeyParser
 import io.reactivex.Maybe
@@ -35,6 +36,7 @@ internal class MainActivity : Activity() {
         return FluentStoreBuilder.barcode(myFetcher) {
             persister = myPersister
             memoryPolicy = myMemoryPolicy
+            stalePolicy = StalePolicy.REFRESH_ON_STALE
         }
       }
 
@@ -54,6 +56,7 @@ internal class MainActivity : Activity() {
         return FluentStoreBuilder.key(myFetcher) {
             persister = myPersister
             memoryPolicy = myMemoryPolicy
+            stalePolicy = StalePolicy.REFRESH_ON_STALE
         }
       }
 
@@ -77,6 +80,7 @@ internal class MainActivity : Activity() {
             parser = myKeyParser
             parsers = listOf(myParser, myParser)
             memoryPolicy = myMemoryPolicy
+            stalePolicy = StalePolicy.REFRESH_ON_STALE
         }
     }
 
