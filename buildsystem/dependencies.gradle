@@ -4,5 +4,5 @@ ext.versions += [
 
 ext.dependencies = [
 	kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib:${ext.versions.kotlin}",
-	store: "com.nytimes.android:store:${ext.versions.store}"
+	store: "com.nytimes.android:store3:${ext.versions.store}"
 ]
