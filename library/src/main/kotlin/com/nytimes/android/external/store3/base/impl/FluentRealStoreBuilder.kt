@@ -13,7 +13,8 @@ internal class FluentRealStoreBuilder<Raw, Parsed, Key> constructor(
         private val fetcher: Fetcher<Raw, Key>,
         private val persister: Persister<Raw, Key>?,
         private val keyParser: KeyParser<Key, Raw, Parsed>?,
-        private val parsers: List<Parser<Raw, Parsed>>?) {
+        private val parsers: List<Parser<Raw, Parsed>>?,
+        private val memoryPolicy: MemoryPolicy?) {
     /**
      * Creates the Store instance.
      * @return The created Store with the parameters passed into the constructor.
@@ -29,6 +30,9 @@ internal class FluentRealStoreBuilder<Raw, Parsed, Key> constructor(
             if (parsers != null) {
                 builder = builder.parsers(parsers)
             }
+        }
+        if (memoryPolicy != null) {
+            builder = builder.memoryPolicy(memoryPolicy)
         }
         return builder.open()
     }

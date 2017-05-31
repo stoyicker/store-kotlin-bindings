@@ -7,6 +7,7 @@ import com.nytimes.android.external.store3.base.Parser
 import com.nytimes.android.external.store3.base.Persister
 import com.nytimes.android.external.store3.base.impl.BarCode
 import com.nytimes.android.external.store3.base.impl.FluentStoreBuilder
+import com.nytimes.android.external.store3.base.impl.MemoryPolicy
 import com.nytimes.android.external.store3.base.impl.Store
 import com.nytimes.android.external.store3.util.KeyParser
 import io.reactivex.Maybe
@@ -32,10 +33,12 @@ internal class MainActivity : Activity() {
         }
         val myKeyParser = KeyParser<BarCode, ByteArray, ByteArray> { _, _ -> ByteArray(0) }
         val myParser = Parser<ByteArray, ByteArray> { ByteArray(0) }
+        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
         return FluentStoreBuilder.barcode(myFetcher) {
             persister = myPersister
             parser = myKeyParser
             parsers = listOf(myParser, myParser)
+            memoryPolicy = myMemoryPolicy
         }
       }
 
@@ -53,10 +56,12 @@ internal class MainActivity : Activity() {
         }
         val myKeyParser = KeyParser<Int, ByteArray, ByteArray> { _, _ -> ByteArray(0) }
         val myParser = Parser<ByteArray, ByteArray> { ByteArray(0) }
+        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
         return FluentStoreBuilder.key(myFetcher) {
             persister = myPersister
             parser = myKeyParser
             parsers = listOf(myParser, myParser)
+            memoryPolicy = myMemoryPolicy
         }
       }
 
@@ -74,10 +79,12 @@ internal class MainActivity : Activity() {
         }
         val myKeyParser = KeyParser<Int, ByteArray, DummyModel> { _, _ -> DummyModel() }
         val myParser = Parser<ByteArray, DummyModel> { DummyModel() }
+        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
         return FluentStoreBuilder.parsedWithKey(myFetcher) {
             persister = myPersister
             parser = myKeyParser
             parsers = listOf(myParser, myParser)
+            memoryPolicy = myMemoryPolicy
         }
     }
 
