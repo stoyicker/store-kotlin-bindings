@@ -6,13 +6,14 @@ import com.nytimes.android.external.store3.base.Fetcher
 import com.nytimes.android.external.store3.base.Parser
 import com.nytimes.android.external.store3.base.Persister
 import com.nytimes.android.external.store3.base.impl.BarCode
+import com.nytimes.android.external.store3.base.impl.FluentMemoryPolicyBuilder
 import com.nytimes.android.external.store3.base.impl.FluentStoreBuilder
-import com.nytimes.android.external.store3.base.impl.MemoryPolicy
 import com.nytimes.android.external.store3.base.impl.StalePolicy
 import com.nytimes.android.external.store3.base.impl.Store
 import com.nytimes.android.external.store3.util.KeyParser
 import io.reactivex.Maybe
 import io.reactivex.Single
+import java.util.concurrent.TimeUnit
 
 internal class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,12 @@ internal class MainActivity : Activity() {
 
             override fun write(key: BarCode, raw: ByteArray) = Single.just(true)
         }
-        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
+        val myMemoryPolicy = FluentMemoryPolicyBuilder.build {
+            expireAfterAccess = 28
+            expireAfterWrite = 9
+            expireAfterTimeUnit = TimeUnit.MILLISECONDS
+            maxSize = 100
+        }
         return FluentStoreBuilder.barcode(myFetcher) {
             persister = myPersister
             memoryPolicy = myMemoryPolicy
@@ -52,7 +58,12 @@ internal class MainActivity : Activity() {
 
             override fun write(key: Int, raw: ByteArray) = Single.just(true)
         }
-        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
+        val myMemoryPolicy = FluentMemoryPolicyBuilder.build {
+            expireAfterAccess = 28
+            expireAfterWrite = 9
+            expireAfterTimeUnit = TimeUnit.MILLISECONDS
+            maxSize = 100
+        }
         return FluentStoreBuilder.key(myFetcher) {
             persister = myPersister
             memoryPolicy = myMemoryPolicy
@@ -74,7 +85,7 @@ internal class MainActivity : Activity() {
         }
         val myKeyParser = KeyParser<Int, ByteArray, DummyModel> { _, _ -> DummyModel() }
         val myParser = Parser<ByteArray, DummyModel> { DummyModel() }
-        val myMemoryPolicy = MemoryPolicy.MemoryPolicyBuilder().build()
+        val myMemoryPolicy = FluentMemoryPolicyBuilder.build()
         return FluentStoreBuilder.parsedWithKey(myFetcher) {
             persister = myPersister
             parser = myKeyParser
