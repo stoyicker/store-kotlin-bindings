@@ -19,7 +19,7 @@ open class StoreParameters<Raw, Key> internal constructor(private val fetcher: F
  * A parameter box for Store instantiation, used for Stores that can have parsing.
  * @param fetcher The fetcher for the Store.
  */
-class ParsableStoreParameters<Raw, Parsed, Key>(fetcher: Fetcher<Raw, Key>)
+class ParsableStoreParameters<Raw, Parsed, Key> internal constructor(fetcher: Fetcher<Raw, Key>)
     : StoreParameters<Raw, Key>(fetcher) {
     var parser: KeyParser<Key, Raw, Parsed>? = null
         set(value) {

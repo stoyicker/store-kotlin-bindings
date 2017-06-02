@@ -7,7 +7,7 @@ import com.nytimes.android.external.store3.base.Fetcher
 /**
  * Wraps methods for fluent Store instantiation.
  */
-class FluentStoreBuilder {
+class FluentStoreBuilder private constructor() {
     companion object {
         /**
          * Provides a fluent builder to instantiate a Store that uses BarCode objects as keys.
