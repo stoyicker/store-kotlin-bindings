@@ -36,7 +36,7 @@ internal class FluentRealStoreBuilder<Raw, Parsed, Key> constructor(
         if (memoryPolicy != null) {
             builder = builder.memoryPolicy(memoryPolicy)
         }
-        when(stalePolicy) {
+        when (stalePolicy) {
             StalePolicy.REFRESH_ON_STALE -> builder = builder.refreshOnStale()
             StalePolicy.NETWORK_BEFORE_STALE -> builder = builder.networkBeforeStale()
             StalePolicy.UNSPECIFIED -> { } // Do nothing
