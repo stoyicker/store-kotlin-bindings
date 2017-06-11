@@ -16,7 +16,7 @@ class FluentMemoryPolicyBuilder private constructor() {
                         .setExpireAfterWrite(it.expireAfterWrite)
                         .setExpireAfterAccess(it.expireAfterAccess)
                         .setExpireAfterTimeUnit(it.expireAfterTimeUnit)
-                        .setMemorySize(it.maxSize)
+                        .setMemorySize(it.memorySize)
                         .build()
             }
     }

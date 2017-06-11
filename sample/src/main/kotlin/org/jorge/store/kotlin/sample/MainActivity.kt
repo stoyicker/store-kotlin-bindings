@@ -37,7 +37,7 @@ internal class MainActivity : Activity() {
             expireAfterAccess = 28
             expireAfterWrite = 9
             expireAfterTimeUnit = TimeUnit.MILLISECONDS
-            maxSize = 100
+            memorySize = 100
         }
         return FluentStoreBuilder.barcode(myFetcher) {
             persister = myPersister
@@ -62,7 +62,7 @@ internal class MainActivity : Activity() {
             expireAfterAccess = 28
             expireAfterWrite = 9
             expireAfterTimeUnit = TimeUnit.MILLISECONDS
-            maxSize = 100
+            memorySize = 100
         }
         return FluentStoreBuilder.key(myFetcher) {
             persister = myPersister

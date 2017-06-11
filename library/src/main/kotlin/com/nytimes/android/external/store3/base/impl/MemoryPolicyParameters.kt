@@ -14,7 +14,7 @@ class MemoryPolicyParameters {
         _, _, newValue -> newValue >= 0
     }
     var expireAfterTimeUnit = TimeUnit.SECONDS
-    var maxSize by Delegates.vetoable(1L) {
+    var memorySize by Delegates.vetoable(1L) {
         _, _, newValue -> newValue >= 1
     }
 }

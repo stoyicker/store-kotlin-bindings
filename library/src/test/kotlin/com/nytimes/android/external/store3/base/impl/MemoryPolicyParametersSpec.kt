@@ -20,8 +20,8 @@ class MemoryPolicyParametersSpec : StringSpec() {
             "should have expireAfterTimeUnit be ${TimeUnit.SECONDS}" {
                 sut.expireAfterTimeUnit shouldBe TimeUnit.SECONDS
             }
-            "should have maxSize be ${1}" {
-                sut.maxSize shouldBe 1
+            "should have memorySize be ${1}" {
+                sut.memorySize shouldBe 1
             }
         }
         "domain restrictions" {
@@ -42,13 +42,13 @@ class MemoryPolicyParametersSpec : StringSpec() {
                 sut.expireAfterAccess = invalidValue
                 sut.expireAfterAccess shouldBe validValue
             }
-            "maxSize >= 1" {
+            "memorySize >= 1" {
                 val validValue = 3L
                 val invalidValue = -1L
-                sut.maxSize = validValue
-                sut.maxSize shouldBe validValue
-                sut.maxSize = invalidValue
-                sut.maxSize shouldBe validValue
+                sut.memorySize = validValue
+                sut.memorySize shouldBe validValue
+                sut.memorySize = invalidValue
+                sut.memorySize shouldBe validValue
             }
         }
     }
