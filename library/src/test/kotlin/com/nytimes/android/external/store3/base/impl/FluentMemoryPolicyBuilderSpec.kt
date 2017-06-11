@@ -1,37 +1,33 @@
 package com.nytimes.android.external.store3.base.impl
 
-import com.nytimes.android.external.store3.base.Fetcher
-import com.nytimes.android.external.store3.base.Parser
-import com.nytimes.android.external.store3.base.Persister
-import com.nytimes.android.external.store3.util.KeyParser
 import io.kotlintest.matchers.shouldBe
-import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
+import java.util.concurrent.TimeUnit
 
 /**
- * Spec for FluentRealStoreBuilder.
+ * Spec for FluentMemoryPolicyBuilder.
  */
-class FluentRealStoreBuilderSpec : StringSpec() {
+class FluentMemoryPolicyBuilderSpec : StringSpec() {
     init {
-        "should open an equivalent object" {
-            val fetcher = mock<Fetcher<Int, Int>>()
-            val persister = mock<Persister<Int, Int>>()
-            val keyParser = mock<KeyParser<Int, Int, Int>>()
-            val parsers = mock<List<Parser<Int, Int>>>()
-            val memoryPolicy = mock<MemoryPolicy>()
-            val stalePolicy = StalePolicy.NETWORK_BEFORE_STALE
-            val javaResult = RealStoreBuilder.builder<Int, Int, Int>()
-                    .fetcher(fetcher)
-                    .persister(persister)
-                    .parser(keyParser)
-                    .parsers(parsers)
-                    .memoryPolicy(memoryPolicy)
-                    .networkBeforeStale()
-                    .open()
-            val kotlinResult = FluentRealStoreBuilder(fetcher, persister, keyParser, parsers,
-                    memoryPolicy, stalePolicy
-            ).open()
+        "should build an equivalent object" {
+            val expireAfterWriteValue = 10L
+            val expireAfterAccessValue = 20L
+            val expireAfterTimeUnitValue = TimeUnit.HOURS
+            val maxSizeValue = 1000L
+            val javaResult = MemoryPolicy.builder()
+                    .setExpireAfterWrite(expireAfterWriteValue)
+                    .setExpireAfterAccess(expireAfterAccessValue)
+                    .setExpireAfterTimeUnit(expireAfterTimeUnitValue)
+                    .setMemorySize(maxSizeValue)
+                    .build()
+            val kotlinResult = FluentMemoryPolicyBuilder.build {
+                expireAfterWrite = expireAfterWriteValue
+                expireAfterAccess = expireAfterAccessValue
+                expireAfterTimeUnit = expireAfterTimeUnitValue
+                memorySize = maxSizeValue
+            }
             kotlinResult shouldBe javaResult
         }
     }
 }
+

@@ -1,55 +1,37 @@
 package com.nytimes.android.external.store3.base.impl
 
+import com.nytimes.android.external.store3.base.Fetcher
+import com.nytimes.android.external.store3.base.Parser
+import com.nytimes.android.external.store3.base.Persister
+import com.nytimes.android.external.store3.util.KeyParser
 import io.kotlintest.matchers.shouldBe
+import io.kotlintest.mock.mock
 import io.kotlintest.specs.StringSpec
-import java.util.concurrent.TimeUnit
 
 /**
- * Spec for MemoryPolicyParameters.
+ * Spec for FluentRealStoreBuilder.
  */
-class MemoryPolicyParametersSpec : StringSpec() {
+class FluentRealStoreBuilderSpec : StringSpec() {
     init {
-        "defaults" {
-            val sut = MemoryPolicyParameters()
-            "should have expireAfterWrite be ${MemoryPolicy.DEFAULT_POLICY}" {
-                sut.expireAfterWrite shouldBe MemoryPolicy.DEFAULT_POLICY
-            }
-            "should have expireAfterAccess be ${MemoryPolicy.DEFAULT_POLICY}" {
-                sut.expireAfterAccess shouldBe MemoryPolicy.DEFAULT_POLICY
-            }
-            "should have expireAfterTimeUnit be ${TimeUnit.SECONDS}" {
-                sut.expireAfterTimeUnit shouldBe TimeUnit.SECONDS
-            }
-            "should have memorySize be ${1}" {
-                sut.memorySize shouldBe 1
-            }
-        }
-        "domain restrictions" {
-            val sut = MemoryPolicyParameters()
-            "expireAfterWrite >= 0" {
-                val validValue = 82L
-                val invalidValue = -1L
-                sut.expireAfterWrite = validValue
-                sut.expireAfterWrite shouldBe validValue
-                sut.expireAfterWrite = invalidValue
-                sut.expireAfterWrite shouldBe validValue
-            }
-            "expireAfterAccess >= 0" {
-                val validValue = 5L
-                val invalidValue = -1L
-                sut.expireAfterAccess = validValue
-                sut.expireAfterAccess shouldBe validValue
-                sut.expireAfterAccess = invalidValue
-                sut.expireAfterAccess shouldBe validValue
-            }
-            "memorySize >= 1" {
-                val validValue = 3L
-                val invalidValue = -1L
-                sut.memorySize = validValue
-                sut.memorySize shouldBe validValue
-                sut.memorySize = invalidValue
-                sut.memorySize shouldBe validValue
-            }
+        "should open an equivalent object" {
+            val fetcher = mock<Fetcher<Int, Int>>()
+            val persister = mock<Persister<Int, Int>>()
+            val keyParser = mock<KeyParser<Int, Int, Int>>()
+            val parsers = mock<List<Parser<Int, Int>>>()
+            val memoryPolicy = mock<MemoryPolicy>()
+            val stalePolicy = StalePolicy.NETWORK_BEFORE_STALE
+            val javaResult = RealStoreBuilder.builder<Int, Int, Int>()
+                    .fetcher(fetcher)
+                    .persister(persister)
+                    .parser(keyParser)
+                    .parsers(parsers)
+                    .memoryPolicy(memoryPolicy)
+                    .networkBeforeStale()
+                    .open()
+            val kotlinResult = FluentRealStoreBuilder(fetcher, persister, keyParser, parsers,
+                    memoryPolicy, stalePolicy
+            ).open()
+            kotlinResult shouldBe javaResult
         }
     }
 }
