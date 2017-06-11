@@ -40,4 +40,5 @@ dependencies {
     final deps = rootProject.ext.dependencies
     implementation deps.kotlinStdLib
     api deps.store
+    testImplementation deps.kotlinTest
 }

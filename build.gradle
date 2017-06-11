@@ -6,11 +6,11 @@ buildscript {
     maven { url "https://maven.google.com" }
     jcenter()
   }
-  final androidPluginVersion = "3.0.0-alpha2"
+  final androidPluginVersion = "3.0.0-alpha3"
   ext.versions = [
-    kotlin: "1.1.2"
+    kotlin: "1.1.2-4"
   ]
-  final kotlinPluginVersion = ext.versions.kotlin = "1.1.2-4"
+  final kotlinPluginVersion = ext.versions.kotlin
   final dokkaPluginVersion = "0.9.14"
   final gradleReleasePluginVersion = "2.4.0"
   final classpathDependencies = [

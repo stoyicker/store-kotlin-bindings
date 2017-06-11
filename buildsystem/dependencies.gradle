@@ -1,8 +1,10 @@
 ext.versions += [
+        kotlinTest: "2.0.3",
 		store: "3.0.0-alpha"
 ]
 
 ext.dependencies = [
 		kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib:${ext.versions.kotlin}",
+		kotlinTest: "io.kotlintest:kotlintest:${ext.versions.kotlinTest}",
 		store: "com.nytimes.android:store3:${ext.versions.store}"
 ]
