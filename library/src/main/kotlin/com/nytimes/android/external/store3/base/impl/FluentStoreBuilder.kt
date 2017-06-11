@@ -43,7 +43,7 @@ class FluentStoreBuilder private constructor() {
          * @param fetcher Fetcher for the Store.
          * @param config Optional configuration block.
          */
-        fun <Raw, Parsed, Key> parsedWithKey(
+        fun <Key, Raw, Parsed> parsedWithKey(
                 fetcher: Fetcher<Raw, Key>,
                 config: (ParsableStoreParameters<Raw, Parsed, Key>.() -> Unit)? = null) =
                 ParsableStoreParameters<Raw, Parsed, Key>(fetcher).apply {
