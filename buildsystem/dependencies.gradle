@@ -1,10 +1,12 @@
 ext.versions += [
-        kotlinTest: "2.0.3",
+        junit: "4.12",
+        mockito: "2.8.9",
 		store: "3.0.0-alpha"
 ]
 
 ext.dependencies = [
+		junit: "junit:junit:${ext.versions.junit}",
 		kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib:${ext.versions.kotlin}",
-		kotlinTest: "io.kotlintest:kotlintest:${ext.versions.kotlinTest}",
+		mockito: "org.mockito:mockito-android:${ext.versions.mockito}",
 		store: "com.nytimes.android:store3:${ext.versions.store}"
 ]
