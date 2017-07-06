@@ -1,3 +1,5 @@
+This repository is now deprecated. Use [this](https://github.com/NYTimes/Store/pull/229) instead.
+
 # Store bindings for Kotlin
 
 A small collection of helper functions for idiomatic use of [NYTimes/Store](https://github.com/NYTimes/Store) when developing in Kotlin.
